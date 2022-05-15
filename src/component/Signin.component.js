@@ -3,10 +3,25 @@ import React from "react";
 
 import './Signin.style.css'
 
-class Signin extends React.Component {
+function Signin () {
+
+    // constructor(){
+    //     super()
+    //     this.state={
+    //         email:'',
+    //         password:''
+    //     }
+    // }
+
+    // const [name, setName] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('')
+
+//    const handleChange = (event)=>{
+//         console.log(event.target.value)
+//     }
 
 
-    render(){
         return(
             <>
       <form style={{border:"1px solid #ccc"}}>
@@ -16,7 +31,7 @@ class Signin extends React.Component {
 
           <div>
           <label className="label">Email</label>
-          <input type="text" placeholder="Enter Email" className="email" required/>
+          <input type="text" placeholder="Enter Email" className="email"  required/>
           </div>
 
 
@@ -33,7 +48,7 @@ class Signin extends React.Component {
       </form>              
             </>
         )
-    }  
+    
 }
 
 export default Signin
