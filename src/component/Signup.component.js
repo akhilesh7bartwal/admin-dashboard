@@ -50,7 +50,7 @@ const handleConfirmPassword = (event) =>{
 
 const handleSubmit = (event) =>{
   event.preventDefault();
-  axios.post("http://localhost:3030/signup",{
+  axios.post("https://admin-dashboard-backend.vercel.app/signup",{
     name:name,
     email:email,
     address:address,
