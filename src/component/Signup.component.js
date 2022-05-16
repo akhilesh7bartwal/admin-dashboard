@@ -5,59 +5,39 @@ import './Signup.style.css'
 
 import axios from 'axios'
 
+
+
 function Signup() {
 
-  // constructor(){
-  //   super()
-  //   this.state={
-  //       name:'', 
-  //       email:'',
-  //       address:'',
-  //       password:''
-  //   }
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-
-  //const [submitted, setSubmitted] = useState(false)
+  const [allValues, setAllValues] = useState({
+    name: "",
+    email: "",
+    address: "",
+    password: "",
+    confirmPassword: "",
+  });
 
 
-const handleName = (event)=>{
-  setName (event.target.value)
-  //console.log(name)
-};
-
-const handleEmail = (event)=>{
-  setEmail(event.target.value)
-};
-
-const handleAddress = (event) =>{
-  setAddress(event.target.value)
-};
-
-
-const handlePassword = (event) =>{
-  setPassword(event.target.value)
-};
-
-const handleConfirmPassword = (event) =>{
-  setConfirmPassword(event.target.value)
+const handleChange = (event) => {
+  const { name, value } = event.target;
+  setAllValues({ ...allValues, [name]: value });
 };
 
 
 const handleSubmit = (event) =>{
   event.preventDefault();
-  axios.post("https://admin-dashboard-backend.vercel.app/signup",{
-    name:name,
-    email:email,
-    address:address,
-    password:password
-  })
-  .then(response => console.log(response.data))
-  .catch(error => console.log(error))
+
+        axios.post("https://admin-dashboard-backend.vercel.app/signup",{
+          name: allValues.name,
+          email: allValues.email,
+          address: allValues.address,
+          password: allValues.password
+        })
+        .then(response => {
+          console.log(response.data)
+          alert("SignUp successfully.")
+        })
+        .catch(error => console.log(error))
 };
 
 
@@ -71,27 +51,27 @@ const handleSubmit = (event) =>{
 
           <div>
           <label className="label">Name</label>
-          <input type="text" placeholder="Enter Name" className="name" value={name} onChange={handleName} required/>
+          <input type="text" name="name" placeholder="Enter Name" className="name" value={allValues.name} onChange={handleChange} required/>
           </div>
 
           <div>
           <label className="label">Email</label>
-          <input type="text" placeholder="Enter Email" className="email" value={email} onChange={handleEmail} required/>
+          <input type="text" name="email" placeholder="Enter Email" className="email" value={allValues.email} onChange={handleChange} required/>
           </div>
 
           <div>
           <label className="label">Address</label>
-          <input type="text" placeholder="Enter Address" className="address" value={address} onChange={handleAddress} required/>
+          <input type="text" name="address" placeholder="Enter Address" className="address" value={allValues.address} onChange={handleChange} required/>
           </div>
 
           <div>
           <label htmlFor="psw">Password</label>
-          <input type="password" placeholder="Enter Password" className="psw" value={password} onChange={handlePassword} required/>
+          <input type="password" name="password" placeholder="Enter Password" className="psw" value={allValues.password} onChange={handleChange} required/>
           </div>
 
           <div>
           <label htmlFor="psw-repeat">Confirm Password</label>
-          <input type="password" placeholder="Confirm Password" className="psw-repeat" value={confirmPassword} onChange={handleConfirmPassword} required/>
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" className="psw-repeat" value={allValues.confirmPassword} onChange={handleChange} required/>
           </div>
 
 

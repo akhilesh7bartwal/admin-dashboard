@@ -1,53 +1,62 @@
 
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 import './Signin.style.css'
 
 function Signin () {
 
-    // constructor(){
-    //     super()
-    //     this.state={
-    //         email:'',
-    //         password:''
-    //     }
-    // }
+    const [allValues,setAllValues] = useState({
+      email:"",
+      password:""
+    });
 
-    // const [name, setName] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('')
+    const handleChange = (event) =>{
+      console.log(allValues)
+      const {name,value} = event.target;
+      setAllValues({...allValues, [name]:value});
+    };
 
-//    const handleChange = (event)=>{
-//         console.log(event.target.value)
-//     }
+    const submitHandler = (event) => {
+      event.preventDefault();
+      axios
+        .post("http://localhost:3030/signin", {
+          email: allValues.email,
+          password: allValues.password,
+        })
+        .then((response) => {
+          console.log(response);
+          alert("Signin Successfull");
+        })
+        .catch((error) => console.log(error));
+    };
+    
+    return(
+        <>
+        <form style={{border:"1px solid #ccc"}}>
+          <div className="container">
+            <h1>Sign In</h1>
 
 
-        return(
-            <>
-      <form style={{border:"1px solid #ccc"}}>
-        <div className="container">
-          <h1>Sign In</h1>
+            <div>
+            <label className="label">Email</label>
+            <input type="text" name="email"  placeholder="Enter Email" className="email" value={allValues.email} onChange={handleChange}  required/>
+            </div>
 
 
-          <div>
-          <label className="label">Email</label>
-          <input type="text" placeholder="Enter Email" className="email"  required/>
+            <div>
+            <label htmlFor="psw">Password</label>
+            <input type="password" name="password" placeholder="Enter Password"  className="psw" value={allValues.password} onChange={handleChange} required/>
+            </div>
+
+
+            <div className="clearfix">
+              <button type="submit" className="signinbtn" onClick={submitHandler}>Sign In</button>
+            </div>
           </div>
-
-
-          <div>
-          <label htmlFor="psw">Password</label>
-          <input type="password" placeholder="Enter Password" className="psw" required/>
-          </div>
-
-
-          <div className="clearfix">
-            <button type="submit" className="signinbtn">Sign In</button>
-          </div>
-        </div>
-      </form>              
-            </>
-        )
+        </form>              
+        </>
+    )
     
 }
 
